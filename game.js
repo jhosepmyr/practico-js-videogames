@@ -37,21 +37,35 @@ function startGame(){
     game.textAlign = 'end';
     
     //trae el arreglo de maps.js
-    const map = maps[2];
+    const map = maps[0];
     //trim---metodo que sirve para solo string no arreglos que quita los espacios del inicio y del final
     //split---metodo de arreglos para buscar y quita lo que se manda
     const mapRows = map.trim().split('\n'); //creara un arreglo de las final que son 10
     //map---metodo de arreglos que crea un arreglo a partir de un arreglo
     const mapRowCols = mapRows.map(row => row.trim().split(''));// creara un arreglo bidimensional del arreglo dentro de cada elemento habra un arreglo de 10 elementos--se hizo con el objetivo de navegar
 
+    //forEach---metodo de array que es similir al metodo map. pero aqui no creo ningun arrya solo itera por cada elemento--aqui tambien hubiera funcionado el metodo map.--ademas podemos darle un parametro nomas---pero si le DAMOS UN SEGUNDO PARAMETRO, ese es el indice del primer parametro
+    //primero iterara las columanas que son 10
+    mapRowCols.forEach((row, rowI) =>{
+        //aqui iterara los 10 elementos de cada columna que son las filas por decir
+        row.forEach((col, colI) => {
+            //le damos de parametro COL ya que son los indices que ayudara a mostrar el respectivo emoji
+            const emoji = emojis[col];
+            //se suma uno ya q le establecimos un textAlign que afecta ya q colI y rowI vienen de los array que comienzan con 0
+            const posX = elementsSize * (colI + 1);
+            const posY = elementsSize * (rowI + 1);
+            game.fillText(emoji, posX, posY);
+        })
+    })
 
-    for (let row = 1; row <= 10; row++) {
-        for (let col = 1; col <= 10; col++) {
-            //le restamos uno puesto q los array comienzan de 0 no de 1
-            game.fillText(emojis[mapRowCols[row - 1][col - 1]], elementsSize * col, elementsSize * row);
-        }
+    //esta forma es dificil de entener pero si funciona
+    // for (let row = 1; row <= 10; row++) {
+    //     for (let col = 1; col <= 10; col++) {
+    //         //le restamos uno puesto q los array comienzan de 0 no de 1
+    //         game.fillText(emojis[mapRowCols[row - 1][col - 1]], elementsSize * col, elementsSize * row);
+    //     }
         
-    }
+    // }
     // for(let ver=1; ver<=10; ver++){
     //     for (let hor = 1; hor <=10; hor++) {
     //         game.fillText(emojis['X'],elementsSize*hor,elementsSize*ver)
