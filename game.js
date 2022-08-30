@@ -18,6 +18,11 @@ const playerPosition = {
     y: undefined
 }
 
+const giftPosition = {
+    x: undefined,
+    y: undefined,
+  };
+
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
@@ -74,6 +79,9 @@ function startGame(){
                     playerPosition.x = posX;
                     playerPosition.y = posY;
                 }
+            }else if (col == 'I'){
+                giftPosition.x = posX;
+                giftPosition.y = posY;
             }
 
             game.fillText(emoji, posX, posY);
@@ -117,6 +125,16 @@ function startGame(){
 }
 
 function movePlayer(){
+    //en la constante podemos darle una igual para que nos regrese un boleano
+    // el metodo toFixed nos ayuda a solo escoger una cantidad limitada de decimales, con su parametro lo fijamos
+    const giftCollisionX = playerPosition.x.toFixed(3) == giftPosition.x.toFixed(3);
+    const giftCollisionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3);
+    const giftCollision = giftCollisionX && giftCollisionY;
+    
+    if (giftCollision) {
+      console.log('Subiste de nivel!');
+    }
+
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 
