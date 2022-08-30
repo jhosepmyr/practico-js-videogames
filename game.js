@@ -54,6 +54,9 @@ function startGame(){
     //map---metodo de arreglos que crea un arreglo a partir de un arreglo
     const mapRowCols = mapRows.map(row => row.trim().split(''));// creara un arreglo bidimensional del arreglo dentro de cada elemento habra un arreglo de 10 elementos--se hizo con el objetivo de navegar
 
+    //metodo clearRect para hacer un borrar de la seccion establecida
+    game.clearRect(0,0, canvasSize, canvasSize);
+
     //forEach---metodo de array que es similir al metodo map. pero aqui no creo ningun arrya solo itera por cada elemento--aqui tambien hubiera funcionado el metodo map.--ademas podemos darle un parametro nomas---pero si le DAMOS UN SEGUNDO PARAMETRO, ese es el indice del primer parametro
     //primero iterara las columanas que son 10
     mapRowCols.forEach((row, rowI) =>{
@@ -64,9 +67,20 @@ function startGame(){
             //se suma uno ya q le establecimos un textAlign que afecta ya q colI y rowI vienen de los array que comienzan con 0
             const posX = elementsSize * (colI + 1);
             const posY = elementsSize * (rowI + 1);
+
+            if(col == 'O'){
+                //creamos un if anidado para que los valores se puedan establecer
+                if(!playerPosition.x && !playerPosition.y) {
+                    playerPosition.x = posX;
+                    playerPosition.y = posY;
+                }
+            }
+
             game.fillText(emoji, posX, posY);
         })
-    })
+    });
+
+    movePlayer();
 
     //esta forma es dificil de entener pero si funciona
     // for (let row = 1; row <= 10; row++) {
@@ -102,9 +116,13 @@ function startGame(){
 
 }
 
+function movePlayer(){
+    game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
+}
+
 //keyup--evento que es cuando soltamos la tecla
 //keydown--evento que es cuando presionamos la tecla
-window.addEventListener('keydown', moveByKeys)
+window.addEventListener('keydown', moveByKeys);
 //window--posee para extraer los datos de los perifericos
 btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);
@@ -121,13 +139,22 @@ function moveByKeys(event) {
 }
 function moveUp() {
     console.log('Me quiero mover hacia arriba');
+    playerPosition.y -=elementsSize;
+    startGame();
+
 }
 function moveLeft() {
     console.log('Me quiero mover hacia izquierda');
+    playerPosition.x -=elementsSize;
+    startGame();
 }
 function moveRight() {
     console.log('Me quiero mover hacia derecha');
+    playerPosition.x +=elementsSize;
+    startGame();
 }
 function moveDown() {
     console.log('Me quiero mover hacia abajo');
+    playerPosition.y +=elementsSize;
+    startGame();
 }
