@@ -2,11 +2,17 @@ const canvas = document.querySelector('#game');
 //getContext--metodo para tener las propiedades de Canvas
 const game = canvas.getContext('2d');
 // window es como todo nuestro HTML 
-// lOAD es cuando carga el HTML
-window.addEventListener('load', startGame);
+// lOAD--evento de cada vez que recargamos la pagina
+// RESIZE--evento de cada vez que modificamos el tamano de la pagina
 
-function startGame(){
-    let canvasSize;
+let canvasSize;
+let elementsSize;
+
+window.addEventListener('load', setCanvasSize);
+window.addEventListener('resize', setCanvasSize);
+
+function setCanvasSize() {
+
     //window.innerHeight y innerWidth-- son metodos para saber las dimensiones de la pantalla
     if (window.innerHeight > window.innerWidth) {
         canvasSize = window.innerWidth * 0.8;
@@ -17,7 +23,13 @@ function startGame(){
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    const elementsSize = canvasSize / 10;
+    elementsSize = canvasSize / 10;
+
+    startGame();
+
+    }
+
+function startGame(){
 
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
