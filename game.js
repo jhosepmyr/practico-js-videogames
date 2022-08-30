@@ -30,12 +30,27 @@ function setCanvasSize() {
     }
 
 function startGame(){
+// transformar el string de los mapas en un arreglo bidimensional
+//  const map = maps[0].match(/[IXO\-]+]/g).map(a=>a.split(""))
 
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
+    
+    //trae el arreglo de maps.js
+    const map = maps[2];
+    //trim---metodo que sirve para solo string no arreglos que quita los espacios del inicio y del final
+    //split---metodo de arreglos para buscar y quita lo que se manda
+    const mapRows = map.trim().split('\n'); //creara un arreglo de las final que son 10
+    //map---metodo de arreglos que crea un arreglo a partir de un arreglo
+    const mapRowCols = mapRows.map(row => row.trim().split(''));// creara un arreglo bidimensional del arreglo dentro de cada elemento habra un arreglo de 10 elementos--se hizo con el objetivo de navegar
 
-    for (let i = 1; i <= 10; i++) {
-        game.fillText(emojis['X'], elementsSize, elementsSize * i);
+
+    for (let row = 1; row <= 10; row++) {
+        for (let col = 1; col <= 10; col++) {
+            //le restamos uno puesto q los array comienzan de 0 no de 1
+            game.fillText(emojis[mapRowCols[row - 1][col - 1]], elementsSize * col, elementsSize * row);
+        }
+        
     }
     // for(let ver=1; ver<=10; ver++){
     //     for (let hor = 1; hor <=10; hor++) {
