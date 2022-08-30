@@ -4,9 +4,19 @@ const game = canvas.getContext('2d');
 // window es como todo nuestro HTML 
 // lOAD--evento de cada vez que recargamos la pagina
 // RESIZE--evento de cada vez que modificamos el tamano de la pagina
+const btnUp = document.querySelector('#up');
+const btnLeft = document.querySelector('#left');
+const btnRight = document.querySelector('#right');
+const btnDown = document.querySelector('#down');
+
 
 let canvasSize;
 let elementsSize;
+
+const playerPosition = {
+    x: undefined,
+    y: undefined
+}
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -90,4 +100,34 @@ function startGame(){
     //fillText-- metodo para agregar texto con coordenadas
     // game.fillText('platzi',50,50);
 
+}
+
+//keyup--evento que es cuando soltamos la tecla
+//keydown--evento que es cuando presionamos la tecla
+window.addEventListener('keydown', moveByKeys)
+//window--posee para extraer los datos de los perifericos
+btnUp.addEventListener('click', moveUp);
+btnLeft.addEventListener('click', moveLeft);
+btnRight.addEventListener('click', moveRight);
+btnDown.addEventListener('click', moveDown);
+//dato que cada funcion del evento, recibe un parametro que es el evento se puede poner como tambien no
+
+function moveByKeys(event) {
+    //el evento tiene varias propiedades--key es identificador de cada tecla en este caso
+    if (event.key == 'ArrowUp') moveUp();
+    else if (event.key == 'ArrowLeft') moveLeft();
+    else if (event.key == 'ArrowRight') moveRight();
+    else if (event.key == 'ArrowDown') moveDown();
+}
+function moveUp() {
+    console.log('Me quiero mover hacia arriba');
+}
+function moveLeft() {
+    console.log('Me quiero mover hacia izquierda');
+}
+function moveRight() {
+    console.log('Me quiero mover hacia derecha');
+}
+function moveDown() {
+    console.log('Me quiero mover hacia abajo');
 }
