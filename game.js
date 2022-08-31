@@ -22,6 +22,8 @@ const giftPosition = {
     x: undefined,
     y: undefined,
   };
+//se crea como let ya que queremos que se pueda reinicializar la variable con cons no se puede
+let enemyPositions = [];
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -52,7 +54,7 @@ function startGame(){
     game.textAlign = 'end';
     
     //trae el arreglo de maps.js
-    const map = maps[0];
+    const map = maps[1];
     //trim---metodo que sirve para solo string no arreglos que quita los espacios del inicio y del final
     //split---metodo de arreglos para buscar y quita lo que se manda
     const mapRows = map.trim().split('\n'); //creara un arreglo de las final que son 10
@@ -61,6 +63,9 @@ function startGame(){
 
     //metodo clearRect para hacer un borrar de la seccion establecida
     game.clearRect(0,0, canvasSize, canvasSize);
+
+    // con esto ya no se duplicara la variable cada vez que nos movamos sino se borra todo y se vuelve a escribir
+    enemyPositions = [];
 
     //forEach---metodo de array que es similir al metodo map. pero aqui no creo ningun arrya solo itera por cada elemento--aqui tambien hubiera funcionado el metodo map.--ademas podemos darle un parametro nomas---pero si le DAMOS UN SEGUNDO PARAMETRO, ese es el indice del primer parametro
     //primero iterara las columanas que son 10
@@ -82,6 +87,8 @@ function startGame(){
             }else if (col == 'I'){
                 giftPosition.x = posX;
                 giftPosition.y = posY;
+            }else if(col == 'X'){
+              enemyPositions.push({x: posX, y: posY});
             }
 
             game.fillText(emoji, posX, posY);
@@ -133,6 +140,18 @@ function movePlayer(){
     
     if (giftCollision) {
       console.log('Subiste de nivel!');
+    }
+
+    //creamos esta constante para ver si se choca contra algun obstaculo pero con las positiones del array
+    //find---metodo array que busca por cada array,pero no modifica al array original
+    const enemyCollision = enemyPositions.find(enemy => {
+      const enemyCollisionX = enemy.x.toFixed(3) == playerPosition.x.toFixed(3);
+      const enemyCollisionY = enemy.y.toFixed(3) == playerPosition.y.toFixed(3);
+      return enemyCollisionX && enemyCollisionY;
+    })
+
+    if(enemyCollision){
+      console.log('chocaste contra un enemigo :,v')
     }
 
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
