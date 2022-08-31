@@ -14,6 +14,8 @@ let canvasSize;
 let elementsSize;
 //variable de el cambio de niveles
 let level = 0;
+//variable de vidas del jugador
+let lives = 3;
 
 const playerPosition = {
     x: undefined,
@@ -160,7 +162,7 @@ function movePlayer(){
     })
 
     if(enemyCollision){
-      console.log('chocaste contra un enemigo :,v')
+      levelFail();
     }
 
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
@@ -172,6 +174,25 @@ function levelWin(){
   console.log('subiste de nivel');
   //esta variable es para que cada vez se sume 1 
   level++;
+  startGame();
+}
+
+function levelFail(){
+  console.log('chocaste contra un enemigo');
+  //decreceman las vidas
+  lives--;
+
+  //para
+  if (lives<=0){
+    //lo volvemos al primer nivel
+    level = 0;
+    //y le reseteamos las vidas que tenia
+    lives = 3;
+  }
+
+  //ponemos undefined ya que al pasar por la funcion startGame en la validacion de la posicion del if anidado nos regresara a la posicion inicial
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
   startGame();
 }
 
