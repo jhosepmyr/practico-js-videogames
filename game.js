@@ -306,5 +306,15 @@ function moveDown() {
 //setInterval(a,b)--nos da dos argumentos. 1- la funcion flecha o alguna funcion externa. 2- el tiempo en milisegundos que se ejecutara continuamente el tiempo establecido
 //setTimeout(a,b)---nos da dos argumentos. 1- la funcion flecha o alguna funcion externa. 2- el tiempo en milisegundos para que la funcion del 1 argumento se ejecute solo una vez depsues del tiempo establecido
 //clearInterval(variable)-- lo damos un parametro de una variable con setInterval , para frenarlo y no se ejecute
+
 //DATE--super objetos de JS o prototipe
 //Date.now()--El método estático Date.now() devuelve el número de milisegundos transcurridos desde el 1 de enero de 1970 a las 00:00:00 UTC.
+
+
+//localStorage
+//solo esta herramienta funciona en los navegadores--por ende solo en FrontEnd
+//almacenamiento local en nuestro navegador--pedirle al navegador que guarde --y que la informacion no se borre
+// localStorage--para ver las variables guardadas
+// localStorage.setItem(a,b)---a. la variable que guardaremos-b. el contenido de la variable.
+// localStorage.getItem(a)--a. traera la variable si esta guardada
+// localStorage.removeItem(a)--a. la variable que sera eliminada
