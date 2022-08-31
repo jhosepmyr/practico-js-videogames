@@ -10,10 +10,17 @@ const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
 
 const spanLives = document.querySelector('#lives');
+const spanTime = document.querySelector('#time');
 
 
 let canvasSize;
 let elementsSize;
+let timeStart;
+//variable del tiempo del juagdor
+let timePlayer;
+let timeInterval;
+
+
 //variable de el cambio de niveles
 let level = 0;
 //variable de vidas del jugador
@@ -66,6 +73,12 @@ function startGame(){
     if(!map){
       gameWin();
       return;
+    }
+    //le ponemos un condicional para que solo se ejecute cuando este vacia porque la funcion startGame se ejecuta constantemente
+    if(!timeStart){
+       //la deficion de Date y setInterval al final
+      timeStart = Date.now();
+      timeInterval = setInterval(showTime,100);
     }
 
     //trim---metodo que sirve para solo string no arreglos que quita los espacios del inicio y del final
@@ -194,6 +207,8 @@ function levelFail(){
     level = 0;
     //y le reseteamos las vidas que tenia
     lives = 3;
+    //cada ves q pierda se volvera undefine haciendo q en la funcion startGame vuelva a iniciar en 0
+    timeStart = undefined;
   }
 
   //ponemos undefined ya que al pasar por la funcion startGame en la validacion de la posicion del if anidado nos regresara a la posicion inicial
@@ -204,6 +219,8 @@ function levelFail(){
 
 function gameWin(){
   console.log('terminaste el juego');
+   //la deficion de clearInterval al final
+  clearInterval(timeInterval);
 }
 
 function showLives(){
@@ -219,6 +236,11 @@ function showLives(){
 //  heartsArray.forEach(heart => spanLives.innerHTML =heart);
 
  
+}
+
+function showTime(){
+  //la deficion de Date al final
+  spanTime.innerHTML = Date.now() - timeStart;
 }
 
 //keyup--evento que es cuando soltamos la tecla
@@ -278,3 +300,11 @@ function moveDown() {
     startGame();
   }
 }
+
+
+//FUNCIONES DE TIEMPO DE JS
+//setInterval(a,b)--nos da dos argumentos. 1- la funcion flecha o alguna funcion externa. 2- el tiempo en milisegundos que se ejecutara continuamente el tiempo establecido
+//setTimeout(a,b)---nos da dos argumentos. 1- la funcion flecha o alguna funcion externa. 2- el tiempo en milisegundos para que la funcion del 1 argumento se ejecute solo una vez depsues del tiempo establecido
+//clearInterval(variable)-- lo damos un parametro de una variable con setInterval , para frenarlo y no se ejecute
+//DATE--super objetos de JS o prototipe
+//Date.now()--El método estático Date.now() devuelve el número de milisegundos transcurridos desde el 1 de enero de 1970 a las 00:00:00 UTC.
