@@ -9,6 +9,8 @@ const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
 
+const spanLives = document.querySelector('#lives');
+
 
 let canvasSize;
 let elementsSize;
@@ -71,6 +73,9 @@ function startGame(){
     const mapRows = map.trim().split('\n'); //creara un arreglo de las final que son 10
     //map---metodo de arreglos que crea un arreglo a partir de un arreglo
     const mapRowCols = mapRows.map(row => row.trim().split(''));// creara un arreglo bidimensional del arreglo dentro de cada elemento habra un arreglo de 10 elementos--se hizo con el objetivo de navegar
+
+    //funcion llamada para mostrar la vidas desde el comienzo desde del if para que no se duplique
+    showLives();
 
     //metodo clearRect para hacer un borrar de la seccion establecida
     game.clearRect(0,0, canvasSize, canvasSize);
@@ -181,6 +186,7 @@ function levelFail(){
   console.log('chocaste contra un enemigo');
   //decreceman las vidas
   lives--;
+  
 
   //para
   if (lives<=0){
@@ -198,6 +204,21 @@ function levelFail(){
 
 function gameWin(){
   console.log('terminaste el juego');
+}
+
+function showLives(){
+  //fill---metodo de array para insertarle a cada elemento
+ const heartsArray = Array(lives).fill(emojis['HEART']); // es un superprotipo de JS para crear un array, va siempre con mayuscula al comienzo // el parametro es de un array que ayudara para saber cuantos elementos tendra el nuevo array
+
+ //va antes del forEach para limpie el string sino se agregaria cada vez mas
+ spanLives.innerHTML = emojis['HEART'];
+//append--metodo para agregar contenido
+//forEach--metodo de array para recorrer por cada elemento
+ heartsArray.forEach(heart => spanLives.append(heart));
+// esta solucion de abajo no ya que solo agregaria un solo corazon 
+//  heartsArray.forEach(heart => spanLives.innerHTML =heart);
+
+ 
 }
 
 //keyup--evento que es cuando soltamos la tecla
