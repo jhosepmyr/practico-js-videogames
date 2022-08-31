@@ -44,20 +44,32 @@ let enemyPositions = [];
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
 
+//esto para todas las variables que sean numeros para reducirles los decimales, ya que podria fallar el calculo de las pantallas en algun momento
+function fixNumber(n){
+  return Number(n.toFixed(0));
+}
+
 function setCanvasSize() {
 
     //window.innerHeight y innerWidth-- son metodos para saber las dimensiones de la pantalla
     if (window.innerHeight > window.innerWidth) {
-        canvasSize = window.innerWidth * 0.8;
+        canvasSize = window.innerWidth * 0.7;
     } else {
-        canvasSize = window.innerHeight * 0.8;
+        canvasSize = window.innerHeight * 0.7;
     }
+
+    //para que todos las variables q se generen a partir de este tengan la minima cantidad de decimales
+    canvasSize = Number(canvasSize.toFixed(0));
+
     //setAttribute--metodo para reasignar un atributo
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
     elementsSize = canvasSize / 10;
 
+
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
     startGame();
 
     }
