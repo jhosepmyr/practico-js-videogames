@@ -272,7 +272,7 @@ function showLives(){
  const heartsArray = Array(lives).fill(emojis['HEART']); // es un superprotipo de JS para crear un array, va siempre con mayuscula al comienzo // el parametro es de un array que ayudara para saber cuantos elementos tendra el nuevo array
 
  //va antes del forEach para limpie el string sino se agregaria cada vez mas
- spanLives.innerHTML = emojis['HEART'];
+ spanLives.innerHTML = "";
 //append--metodo para agregar contenido
 //forEach--metodo de array para recorrer por cada elemento
  heartsArray.forEach(heart => spanLives.append(heart));
@@ -372,4 +372,5 @@ function moveDown() {
 //location.reload()--funcion que reincia la pagina como si se presionara F5--- no tan bueno, para el usuario
 
 //BUGS
-//crear un boton de inicio para recargar cuando ganes
+//crear cuando ganes muestre algo
+//cuando pierdas puedes poner un cronometro de cuanta regresiva para q se reinicie la pagina con timeOuts()
