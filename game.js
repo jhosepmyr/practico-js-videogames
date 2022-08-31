@@ -12,6 +12,9 @@ const btnDown = document.querySelector('#down');
 const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 
+const spanRecord = document.querySelector('#record');
+const pResult = document.querySelector('#result');
+
 
 let canvasSize;
 let elementsSize;
@@ -79,6 +82,8 @@ function startGame(){
        //la deficion de Date y setInterval al final
       timeStart = Date.now();
       timeInterval = setInterval(showTime,100);
+
+      showRecord();
     }
 
     //trim---metodo que sirve para solo string no arreglos que quita los espacios del inicio y del final
@@ -221,6 +226,26 @@ function gameWin(){
   console.log('terminaste el juego');
    //la deficion de clearInterval al final
   clearInterval(timeInterval);
+  //variable que se actualizara despues del primer intento
+  const recordTime = localStorage.getItem('record_time');
+  //variable del tiempo del jugador
+  const playerTime = Date.now() - timeStart;
+  //condicion de si recordtime tiene tiempo es verdadero si no no
+  if(recordTime){
+    if(recordTime >= playerTime){
+      //reinicializamos la variable del localStorage con el menor tiempo
+      localStorage.setItem('record_time', playerTime);
+      pResult.innerHTML = 'superaste el record';
+    }else {
+      //no hace nada
+      pResult.innerHTML = 'lo siento no superaste el record';
+    }
+  } else {
+    // esto se ejecuta la primera vez q jugamos
+    localStorage.setItem('record_time', playerTime)
+    pResult.innerHTML = 'Primera vez? Muy bien, pero ahora trata de superar tu tiempo :)';
+  }
+  console.log({recordTime, playerTime});
 }
 
 function showLives(){
@@ -241,6 +266,11 @@ function showLives(){
 function showTime(){
   //la deficion de Date al final
   spanTime.innerHTML = Date.now() - timeStart;
+}
+
+function showRecord(){
+  //mostrara en pantalla nuestro record
+  spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 
 //keyup--evento que es cuando soltamos la tecla
