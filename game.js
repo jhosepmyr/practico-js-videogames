@@ -15,6 +15,8 @@ const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
 
+const botonReiniciar = document.querySelector('#reset')
+
 
 let canvasSize;
 let elementsSize;
@@ -175,6 +177,11 @@ function startGame(){
     //fillText-- metodo para agregar texto con coordenadas
     // game.fillText('platzi',50,50);
 
+}
+
+botonReiniciar.addEventListener('click', reiniciarJuego);
+function reiniciarJuego() {
+  location.reload();
 }
 
 function movePlayer(){
@@ -360,3 +367,9 @@ function moveDown() {
 // localStorage.setItem(a,b)---a. la variable que guardaremos-b. el contenido de la variable.
 // localStorage.getItem(a)--a. traera la variable si esta guardada
 // localStorage.removeItem(a)--a. la variable que sera eliminada
+
+
+//location.reload()--funcion que reincia la pagina como si se presionara F5--- no tan bueno, para el usuario
+
+//BUGS
+//crear un boton de inicio para recargar cuando ganes
