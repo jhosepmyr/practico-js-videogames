@@ -12,6 +12,8 @@ const btnDown = document.querySelector('#down');
 
 let canvasSize;
 let elementsSize;
+//variable de el cambio de niveles
+let level = 0;
 
 const playerPosition = {
     x: undefined,
@@ -54,7 +56,14 @@ function startGame(){
     game.textAlign = 'end';
     
     //trae el arreglo de maps.js
-    const map = maps[1];
+    const map = maps[level];
+
+    //significa que si no hay ninguna posicion en nuestro arreglo de map
+    if(!map){
+      gameWin();
+      return;
+    }
+
     //trim---metodo que sirve para solo string no arreglos que quita los espacios del inicio y del final
     //split---metodo de arreglos para buscar y quita lo que se manda
     const mapRows = map.trim().split('\n'); //creara un arreglo de las final que son 10
@@ -139,7 +148,7 @@ function movePlayer(){
     const giftCollision = giftCollisionX && giftCollisionY;
     
     if (giftCollision) {
-      console.log('Subiste de nivel!');
+      levelWin();
     }
 
     //creamos esta constante para ver si se choca contra algun obstaculo pero con las positiones del array
@@ -155,6 +164,19 @@ function movePlayer(){
     }
 
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
+}
+
+
+//esta funcion sera para cuando ganemos
+function levelWin(){
+  console.log('subiste de nivel');
+  //esta variable es para que cada vez se sume 1 
+  level++;
+  startGame();
+}
+
+function gameWin(){
+  console.log('terminaste el juego');
 }
 
 //keyup--evento que es cuando soltamos la tecla
